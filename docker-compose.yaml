@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.8.0
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://136.228.158.126:9200
+      - ELASTICSEARCH_HOSTS=http://136.228.158.126:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - xpack.monitoring.ui.container.elasticsearch.enabled=true
+    ports:
+      - 5601:5601
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+volumes:
+  esdata:
+
+
+
